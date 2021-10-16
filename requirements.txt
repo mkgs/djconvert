@@ -1,0 +1,4 @@
+music-tag==0.4.3
+mutagen==1.45.1
+pydub==0.25.1
+tqdm==4.62.3
