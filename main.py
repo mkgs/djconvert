@@ -69,11 +69,15 @@ def process_file(in_file, out_file):
                 if k.startswith('#') or k == 'artwork':
                     continue
                 newdata[k] = metadata[k].value
-            try:
-                with open(os.path.join(os.path.dirname(in_file), 'cover.jpg'), 'rb') as img_in:
-                    newdata['artwork'] = img_in.read()
-            except Exception as e:
-                raise e
+            for filename in ('cover.jpg', 'cover.jpeg', 'cover.png'):
+                filename = os.path.join(os.path.dirname(in_file), filename)
+                if os.path.exists(filename):
+                    try:
+                        with open(filename, 'rb') as img_in:
+                            newdata['artwork'] = img_in.read()
+                            break
+                    except Exception as e:
+                        pass
             newdata.save()
         elif file_ext in ['.wav', '.WAV']:
             sound.export(out_file, format='wav', parameters=['-ar', sample_rate, '-sample_fmt', 's16'])
