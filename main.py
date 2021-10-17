@@ -43,9 +43,11 @@ def process_file(in_file, out_file):
     sound = AudioSegment.from_file(in_file)
     processed = False
     if sound.frame_rate > MAX_FRAME_RATE:
+        print(f'      {sound.frame_rate}Hz -> {MAX_FRAME_RATE}Hz')
         sound.set_frame_rate(MAX_FRAME_RATE)
         processed = True
     if sound.sample_width > MAX_SAMPLE_WIDTH:
+        print(f'      {sound.sample_width * 8}bit -> {MAX_SAMPLE_WIDTH * 8}bit')
         sound.set_sample_width(MAX_SAMPLE_WIDTH)
         processed = True
     if processed:
