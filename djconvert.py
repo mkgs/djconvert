@@ -52,6 +52,7 @@ def convert_file(in_file: str, out_file: str, out_format: str, force: bool = Fal
     sample_rate, bit_depth = get_format(in_file)
     rate_ok = sample_rate <= MAX_SAMPLE_RATE
     bits_ok = bit_depth <= MAX_BIT_DEPTH
+    # Skip file if already compatible
     if (rate_ok and bits_ok) and not force:
         return False
 
@@ -62,6 +63,7 @@ def convert_file(in_file: str, out_file: str, out_format: str, force: bool = Fal
         'f': out_format
     }
 
+    # write metadata if AIFF
     if out_format == 'aiff':
         output_args['write_id3v2'] = 1
 
@@ -94,7 +96,9 @@ def process_file(in_file: str, in_place: bool = True, force: bool = False):
         print(f'   encountered error, skipping...')
     else:
         if converted:
+            # if in_place is set...
             if in_place:
+                # Remove original file and replace with converted file
                 os.remove(in_file)
                 os.rename(out_file, in_file)
 
