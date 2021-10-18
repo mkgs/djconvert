@@ -55,7 +55,7 @@ def convert_file(in_file: str, out_file: str, out_format: str, force: bool = Fal
     if (rate_ok and bits_ok) and not force:
         return False
 
-    print(f'   converting {in_file}')
+    print(f'   converting {os.path.basename(in_file)}')
 
     output_args = {
         'ar': min(MAX_SAMPLE_RATE, sample_rate),
