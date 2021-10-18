@@ -13,7 +13,7 @@ CONVERTED_FILE_SUFFIX = 'CONVERTED'
 def main():
     parser = argparse.ArgumentParser(description='Process .wav/.aiff files for playback on Pioneer decks')
     parser.add_argument('directory', type=str, help='Directory to process')
-    parser.add_argument('--in-place', default=1, type=int, choices=[0,1], help='Modify files in-place')
+    parser.add_argument('--in-place', default=1, type=int, choices=[0, 1], help='Modify files in-place')
     args = parser.parse_args()
     process_dir(args.directory, bool(args.in_place))
 
@@ -29,7 +29,7 @@ def process_dir(in_dir: str, in_place: bool = True):
         dirs[:] = [d for d in dirs if not d.startswith('.') and not d.startswith('__')]
 
 
-def get_file_extension(in_file:str) -> str:
+def get_file_extension(in_file: str) -> str:
     return os.path.splitext(in_file)[1].strip('.').lower()
 
 
@@ -88,12 +88,15 @@ def process_file(in_file: str, in_place: bool = True, force: bool = False):
     name, ext = os.path.splitext(in_file)
     out_file = f'{name}_{CONVERTED_FILE_SUFFIX}{ext}'
 
-    converted = convert_file(in_file, out_file, file_extension, force)
-
-    if converted:
-        if in_place:
-            os.remove(in_file)
-            os.rename(out_file, in_file)
+    try:
+        converted = convert_file(in_file, out_file, file_extension, force)
+    except:
+        print(f'   encountered error, skipping...')
+    else:
+        if converted:
+            if in_place:
+                os.remove(in_file)
+                os.rename(out_file, in_file)
 
 
 if __name__ == "__main__":
