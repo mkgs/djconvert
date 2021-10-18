@@ -60,7 +60,8 @@ def convert_file(in_file: str, out_file: str, out_format: str, force: bool = Fal
 
     output_args = {
         'ar': min(MAX_SAMPLE_RATE, sample_rate),
-        'f': out_format
+        'f': out_format,
+        'sample_fmt': 's16',
     }
 
     # write metadata if AIFF
