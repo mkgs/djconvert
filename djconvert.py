@@ -18,7 +18,7 @@ def main():
     parser.add_argument('--in-place', default=1, type=int, choices=[0, 1], help='Modify files in-place')
     parser.add_argument('--max-path-length', default=0, type=int, choices=[0, 1], help='Attempt to shorten filenames to 255 chars')
     args = parser.parse_args()
-    process_dir(args.directory, bool(args.in_place), bool(max_path_length))
+    process_dir(args.directory, bool(args.in_place), bool(args.max_path_length))
 
 
 def process_dir(in_dir: str, in_place: bool = True, max_path_length: bool = False):
