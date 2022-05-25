@@ -91,10 +91,10 @@ def shorten_filename(in_file: str) -> bool:
 
     path, filename = os.path.split(in_file)
     name, ext = os.path.splitext(filename)
-    new_name_length = MAX_FILE_PATH_LENGTH - len(ext) - len(path)
+    new_name_length = MAX_FILE_PATH_LENGTH - len(ext) - len(path) - 1
     new_name = name[-new_name_length:]
     if len(new_name) >= MIN_NEW_FILENAME_LENGTH:
-        new_file = f"{path}{new_name}{ext}"
+        new_file = f"{path}/{new_name}{ext}"
         os.rename(in_file, new_file)
         return True
     return False
