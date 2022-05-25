@@ -27,7 +27,7 @@ def process_dir(in_dir: str, in_place: bool = True, max_path_length: bool = Fals
         print(f'reading {root}')
         for name in files:
             in_file = os.path.join(root, name)
-            process_file(in_file, in_place, max_path_length)
+            process_file(in_file, in_place, False, max_path_length)
         # Ignore hidden or OS-specific subdirectories
         dirs[:] = [d for d in dirs if not d.startswith('.') and not d.startswith('__')]
 
